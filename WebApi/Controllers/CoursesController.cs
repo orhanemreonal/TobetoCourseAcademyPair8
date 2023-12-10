@@ -1,5 +1,6 @@
 ﻿using Business.Abstracts;
 using Business.DTOs.Requests;
+using Core.Business.Requests;
 using Entities.Concretes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +22,15 @@ namespace WebApi.Controllers
 
         public async Task<IActionResult> Add([FromBody] CreateCourseRequest createCourseRequest)
         {
-            await _courseService.Add(createCourseRequest);
-            return Ok();
+            var result = await _courseService.Add(createCourseRequest);
+            return Ok(result);
         }
 
         [HttpGet]
 
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
         {
-            var result = await _courseService.GetListAsync();
+            var result = await _courseService.GetListAsync(pageRequest);
             return Ok(result);
         }
 

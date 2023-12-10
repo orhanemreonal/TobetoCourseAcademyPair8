@@ -16,5 +16,6 @@ namespace DataAccess.Concretes
         {
 
         }
+
     }
 }
