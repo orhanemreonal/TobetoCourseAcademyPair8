@@ -16,13 +16,16 @@ namespace Business.MappingProfiles
 
         public MappingProfile()
         {
+
             CreateMap<Category, CreateCategoryRequest>().ReverseMap();
             CreateMap<Category, CreatedCategoryResponse>().ReverseMap();
             CreateMap<Category, GetListedCategoryResponse>().ReverseMap();
             CreateMap<Paginate<Category>, Paginate<GetListedCategoryResponse>>().ReverseMap();
 
 
-
+            CreateMap<Course, GetListedCourseResponse>()
+                .ForMember(destinationMember: p => p.CategoryName,
+                            memberOptions: opt => opt.MapFrom(p => p.Category.CategoryName)).ReverseMap();
             CreateMap<Course, CreateCourseRequest>().ReverseMap();
             CreateMap<Course, CreatedCourseResponse>().ReverseMap();
             CreateMap<Course, GetListedCourseResponse>().ReverseMap();

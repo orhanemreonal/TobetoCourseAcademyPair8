@@ -8,6 +8,7 @@ using Core.DataAccess.Paging;
 using DataAccess.Abstracts;
 using DataAccess.Concretes;
 using Entities.Concretes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,8 @@ public class CourseManager : ICourseService
 
     public async Task<IPaginate<GetListedCourseResponse>> GetListAsync(PageRequest pageRequest)
     {
-        var result = await _courseDal.GetListAsync(index:pageRequest.Index, size:pageRequest.Size);
+        var result = await _courseDal.GetListAsync(index:pageRequest.Index, size:pageRequest.Size,
+            include: p => p.Include(p => p.Category));
         Paginate<GetListedCourseResponse> response = _mapper.Map<Paginate<GetListedCourseResponse>>(result);
         return response;
 
